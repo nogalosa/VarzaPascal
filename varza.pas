@@ -1,6 +1,7 @@
 program varza;
   var n, i, j : integer;
-      v, m : array[1..100] of integer;
+      v : array[1..100] of array[1..100] of integer;
+      ns : array[1..100] of integer;
       r, l : real;
 procedure skaitymas;
   var pr : text;
@@ -10,10 +11,10 @@ procedure skaitymas;
     ReadLn(pr, n);
       for i := 1 to n do
         begin
-          Read(pr, m[i]);
-            for j := 1 to m[i] do
+          Read(pr, ns[i]);
+            for j := 1 to ns[i] do
               begin
-                Read(pr, v[j]);
+                Read(pr, v[i][j]);
               end;
         end;
     close(pr);
@@ -23,11 +24,12 @@ function skaiciavimas : real;
     r := 0;
       for i := 1 to n do
         begin
-          for j := 1 to m[i] do
+          l := 0;
+          for j := 1 to ns[i] do
             begin
-              l := 1 /  v[j];
-              r := r + (1 / l);
+              l := l + 1 /  v[i][j];
             end;
+          r := r + 1 / l;
         end;
   end;
 procedure rasymas;
@@ -35,7 +37,7 @@ procedure rasymas;
   begin
     assign(rz, 'rez1.txt');
     rewrite(rz);
-    WriteLn(rz, l : 2 :2);
+    WriteLn(rz, r : 2 :2);
     close(rz);
   end;
 begin
